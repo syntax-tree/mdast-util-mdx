@@ -23,7 +23,7 @@ Alternatively, the extensions can be used separately:
     — support MDX (or MDX.js) expressions
 *   [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdx-jsx)
     — support MDX (or MDX.js) JSX
-*   [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdxjs-esm)
+*   [`mdast-util-mdxjs-esm`](https://github.com/syntax-tree/mdast-util-mdxjs-esm)
     — support MDX.js ESM
 
 ## Install
