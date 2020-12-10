@@ -35,9 +35,11 @@
   "dependencies": {
     "mdast-util-mdx-expression": "~0.1.0",
     "mdast-util-mdx-jsx": "~0.1.0",
-    "mdast-util-mdxjs-esm": "~0.1.0"
+    "mdast-util-mdxjs-esm": "~0.1.0",
+    "mdast-util-to-markdown": "^0.6.1"
   },
   "devDependencies": {
+    "mdast-util-from-markdown": "^0.8.0",
     "micromark-extension-mdx": "^0.1.0",
     "micromark-extension-mdxjs": "^0.1.0",
     "nyc": "^15.0.0",

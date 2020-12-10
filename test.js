@@ -198,5 +198,18 @@ test('mdast -> markdown', function (t) {
     'should support expressions'
   )
 
+  t.deepEqual(
+    toMarkdown(
+      {
+        type: 'link',
+        url: 'tel:123',
+        children: [{type: 'text', value: 'tel:123'}]
+      },
+      {extensions: [mdx.toMarkdown]}
+    ),
+    '[tel:123](tel:123)\n',
+    'should use link (resource) instead of link (auto)'
+  )
+
   t.end()
 })
