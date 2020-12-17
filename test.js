@@ -78,6 +78,7 @@ test('markdown -> mdast', function (t) {
                 }
               ],
               sourceType: 'module',
+              comments: [],
               range: [0, 17]
             }
           }
@@ -187,6 +188,7 @@ test('markdown -> mdast', function (t) {
                 }
               ],
               sourceType: 'module',
+              comments: [],
               loc: {start: {line: 1, column: 1}, end: {line: 1, column: 6}},
               range: [1, 6]
             }
