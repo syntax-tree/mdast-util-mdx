@@ -14,8 +14,8 @@ Extension for [`mdast-util-from-markdown`][from-markdown] and/or
 When parsing (`from-markdown`), must be combined with either
 [`micromark-extension-mdx`][mdx] or [`micromark-extension-mdxjs`][mdxjs].
 
-You might instead want to use this package through `remark-mdx` or
-`remark-mdxjs` with **[remark][]**.
+You might instead want to use this package through [`remark-mdx`][remark-mdx]
+with **[remark][]**.
 
 Alternatively, the extensions can be used separately:
 
@@ -220,10 +220,8 @@ There are no options.
 
 *   [`remarkjs/remark`][remark]
     — markdown processor powered by plugins
-*   `remarkjs/remark-mdx`
-    — remark plugin to support MDX
-*   `remarkjs/remark-mdxjs`
-    — remark plugin to support MDX.js
+*   [`remarkjs/remark-mdx`][remark-mdx]
+    — remark plugin to support MDX (or MDX.js)
 *   [`micromark/micromark`][micromark]
     — the smallest commonmark-compliant markdown parser that exists
 *   [`micromark/micromark-extension-mdx`][mdx]
@@ -302,3 +300,5 @@ abide by its terms.
 [mdx]: https://github.com/micromark/micromark-extension-mdx
 
 [mdxjs]: https://github.com/micromark/micromark-extension-mdxjs
+
+[remark-mdx]: https://github.com/mdx-js/mdx/tree/next/packages/remark-mdx
