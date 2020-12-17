@@ -56,8 +56,10 @@ test('markdown -> mdast', function (t) {
                           start: {line: 1, column: 7},
                           end: {line: 1, column: 8}
                         },
-                        name: 'a'
-                      }
+                        name: 'a',
+                        range: [7, 8]
+                      },
+                      range: [7, 8]
                     }
                   ],
                   source: {
@@ -69,11 +71,14 @@ test('markdown -> mdast', function (t) {
                       end: {line: 1, column: 17}
                     },
                     value: 'b',
-                    raw: '"b"'
-                  }
+                    raw: '"b"',
+                    range: [14, 17]
+                  },
+                  range: [0, 17]
                 }
               ],
-              sourceType: 'module'
+              sourceType: 'module',
+              range: [0, 17]
             }
           }
         }
@@ -134,27 +139,56 @@ test('markdown -> mdast', function (t) {
           },
           data: {
             estree: {
-              type: 'BinaryExpression',
-              start: 0,
-              end: 5,
-              loc: {start: {line: 1, column: 0}, end: {line: 1, column: 5}},
-              left: {
-                type: 'Literal',
-                start: 0,
-                end: 1,
-                loc: {start: {line: 1, column: 0}, end: {line: 1, column: 1}},
-                value: 1,
-                raw: '1'
-              },
-              operator: '+',
-              right: {
-                type: 'Literal',
-                start: 4,
-                end: 5,
-                loc: {start: {line: 1, column: 4}, end: {line: 1, column: 5}},
-                value: 1,
-                raw: '1'
-              }
+              type: 'Program',
+              start: 1,
+              end: 6,
+              body: [
+                {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'BinaryExpression',
+                    start: 1,
+                    end: 6,
+                    left: {
+                      type: 'Literal',
+                      start: 1,
+                      end: 2,
+                      value: 1,
+                      raw: '1',
+                      loc: {
+                        start: {line: 1, column: 1},
+                        end: {line: 1, column: 2}
+                      },
+                      range: [1, 2]
+                    },
+                    operator: '+',
+                    right: {
+                      type: 'Literal',
+                      start: 5,
+                      end: 6,
+                      value: 1,
+                      raw: '1',
+                      loc: {
+                        start: {line: 1, column: 5},
+                        end: {line: 1, column: 6}
+                      },
+                      range: [5, 6]
+                    },
+                    loc: {
+                      start: {line: 1, column: 1},
+                      end: {line: 1, column: 6}
+                    },
+                    range: [1, 6]
+                  },
+                  start: 1,
+                  end: 6,
+                  loc: {start: {line: 1, column: 1}, end: {line: 1, column: 6}},
+                  range: [1, 6]
+                }
+              ],
+              sourceType: 'module',
+              loc: {start: {line: 1, column: 1}, end: {line: 1, column: 6}},
+              range: [1, 6]
             }
           }
         }

@@ -100,7 +100,7 @@ Now, running `node example` yields (positional info removed for brevity):
                   local: {type: 'Identifier', name: 'Box'}
                 }
               ],
-              source: {type: 'Literal', value: 'place'}
+              source: {type: 'Literal', value: 'place', raw: '"place"'}
             }
           ],
           sourceType: 'module'
@@ -116,10 +116,19 @@ Now, running `node example` yields (positional info removed for brevity):
       value: '\n1 + 1 /* } */\n',
       data: {
         estree: {
-          type: 'BinaryExpression',
-          left: {type: 'Literal', value: 1},
-          operator: '+',
-          right: {type: 'Literal', value: 1}
+          type: 'Program',
+          body: [
+            {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'BinaryExpression',
+                left: {type: 'Literal', value: 1, raw: '1'},
+                operator: '+',
+                right: {type: 'Literal', value: 1, raw: '1'}
+              }
+            }
+          ],
+          sourceType: 'module'
         }
       }
     },
@@ -132,10 +141,19 @@ Now, running `node example` yields (positional info removed for brevity):
           value: '1+1',
           data: {
             estree: {
-              type: 'BinaryExpression',
-              left: {type: 'Literal', value: 1},
-              operator: '+',
-              right: {type: 'Literal', value: 1}
+              type: 'Program',
+              body: [
+                {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'BinaryExpression',
+                    left: {type: 'Literal', value: 1, raw: '1'},
+                    operator: '+',
+                    right: {type: 'Literal', value: 1, raw: '1'}
+                  }
+                }
+              ],
+              sourceType: 'module'
             }
           }
         },
