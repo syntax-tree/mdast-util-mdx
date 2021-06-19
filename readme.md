@@ -28,6 +28,9 @@ Alternatively, the extensions can be used separately:
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -219,17 +222,17 @@ Which you can also put inline: {1+1}.
 
 ## API
 
-### `mdx.fromMarkdown`
+This package exports the following identifier: `mdxFromMarkdown`,
+`mdxToMarkdown`.
+There is no default export.
 
-### `mdx.toMarkdown`
+### `mdxFromMarkdown`
 
-> Note: the separate extensions are also available at
-> `mdast-util-mdx/from-markdown` and `mdast-util-mdx/to-markdown`.
+### `mdxToMarkdown`
 
 Support MDX (or MDX.js).
-The exports of `fromMarkdown` is an extension for
-[`mdast-util-from-markdown`][from-markdown].
-The export of `toMarkdown` is an extension for
+The exports are respectively an extension for
+[`mdast-util-from-markdown`][from-markdown] and
 [`mdast-util-to-markdown`][to-markdown].
 
 There are no options.
