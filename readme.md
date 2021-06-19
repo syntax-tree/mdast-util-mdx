@@ -14,10 +14,10 @@ Extension for [`mdast-util-from-markdown`][from-markdown] and/or
 When parsing (`from-markdown`), must be combined with either
 [`micromark-extension-mdx`][mdx] or [`micromark-extension-mdxjs`][mdxjs].
 
-You might instead want to use this package through [`remark-mdx`][remark-mdx]
-with **[remark][]**.
+## When to use this
 
-Alternatively, the extensions can be used separately:
+Use this if you’re dealing with the AST manually and want to support all of MDX.
+You can also use the extensions separately:
 
 *   [`mdast-util-mdx-expression`](https://github.com/syntax-tree/mdast-util-mdx-expression)
     — support MDX (or MDX.js) expressions
@@ -62,22 +62,22 @@ Which you can also put inline: {1+1}.
 And our script, `example.js`, looks as follows:
 
 ```js
-var fs = require('fs')
-var fromMarkdown = require('mdast-util-from-markdown')
-var toMarkdown = require('mdast-util-to-markdown')
-var syntax = require('micromark-extension-mdxjs')
-var mdx = require('mdast-util-mdx')
+import fs from 'node:fs'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
+import {mdxjs} from 'micromark-extension-mdxjs'
+import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
 
-var doc = fs.readFileSync('example.mdx')
+const doc = fs.readFileSync('example.mdx')
 
-var tree = fromMarkdown(doc, {
-  extensions: [syntax()],
-  mdastExtensions: [mdx.fromMarkdown]
+const tree = fromMarkdown(doc, {
+  extensions: [mdxjs()],
+  mdastExtensions: [mdxFromMarkdown]
 })
 
 console.log(tree)
 
-var out = toMarkdown(tree, {extensions: [mdx.toMarkdown]})
+const out = toMarkdown(tree, {extensions: [mdxToMarkdown]})
 
 console.log(out)
 ```
