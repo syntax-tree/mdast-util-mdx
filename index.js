@@ -5,7 +5,7 @@ import mdxJsxToMarkdown from 'mdast-util-mdx-jsx/to-markdown.js'
 import mdxjsEsmFromMarkdown from 'mdast-util-mdxjs-esm/from-markdown.js'
 import mdxjsEsmToMarkdown from 'mdast-util-mdxjs-esm/to-markdown.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
 export const mdxFromMarkdown = configure([
   mdxExpressionFromMarkdown,
@@ -14,8 +14,8 @@ export const mdxFromMarkdown = configure([
 ])
 
 function configure(extensions) {
-  var config = {canContainEols: []}
-  var index = -1
+  const config = {canContainEols: []}
+  let index = -1
 
   while (++index < extensions.length) {
     extension(config, extensions[index])
@@ -25,18 +25,19 @@ function configure(extensions) {
 }
 
 function extension(config, extension) {
-  var key
-  var left
-  var right
+  let key
+  let left
 
   for (key in extension) {
-    left = own.call(config, key) ? config[key] : (config[key] = {})
-    right = extension[key]
+    if (own.call(extension, key)) {
+      left = own.call(config, key) ? config[key] : (config[key] = {})
+      const right = extension[key]
 
-    if (key === 'canContainEols') {
-      config[key] = [].concat(left, right)
-    } else {
-      Object.assign(left, right)
+      if (key === 'canContainEols') {
+        config[key] = [].concat(left, right)
+      } else {
+        Object.assign(left, right)
+      }
     }
   }
 }

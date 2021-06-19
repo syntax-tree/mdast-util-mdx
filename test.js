@@ -4,7 +4,7 @@ import toMarkdown from 'mdast-util-to-markdown'
 import mdxjs from 'micromark-extension-mdxjs'
 import {mdxFromMarkdown, mdxToMarkdown} from './index.js'
 
-test('markdown -> mdast', function (t) {
+test('markdown -> mdast', (t) => {
   t.deepEqual(
     JSON.parse(
       JSON.stringify(
@@ -206,7 +206,7 @@ test('markdown -> mdast', function (t) {
   t.end()
 })
 
-test('mdast -> markdown', function (t) {
+test('mdast -> markdown', (t) => {
   t.equal(
     toMarkdown(
       {type: 'mdxjsEsm', value: 'import a from "b"'},
