@@ -1,2 +1,2 @@
-exports.fromMarkdown = require('./from-markdown')
-exports.toMarkdown = require('./to-markdown')
+exports.fromMarkdown = require('./from-markdown.js')
+exports.toMarkdown = require('./to-markdown.js')
