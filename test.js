@@ -1,7 +1,7 @@
 import test from 'tape'
-import fromMarkdown from 'mdast-util-from-markdown'
-import toMarkdown from 'mdast-util-to-markdown'
-import mdxjs from 'micromark-extension-mdxjs'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
+import {mdxjs} from 'micromark-extension-mdxjs'
 import {mdxFromMarkdown, mdxToMarkdown} from './index.js'
 
 test('markdown -> mdast', (t) => {
