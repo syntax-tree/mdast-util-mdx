@@ -1,6 +1,14 @@
 /**
  * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
  * @typedef {import('mdast-util-to-markdown').Options} ToMarkdownExtension
+ * @typedef {import('mdast-util-mdx-expression').MDXFlowExpression} MDXFlowExpression
+ * @typedef {import('mdast-util-mdx-expression').MDXTextExpression} MDXTextExpression
+ * @typedef {import('mdast-util-mdx-jsx').MDXJsxAttributeValueExpression} MDXJsxAttributeValueExpression
+ * @typedef {import('mdast-util-mdx-jsx').MDXJsxAttribute} MDXJsxAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MDXJsxExpressionAttribute} MDXJsxExpressionAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MDXJsxFlowElement} MDXJsxFlowElement
+ * @typedef {import('mdast-util-mdx-jsx').MDXJsxTextElement} MDXJsxTextElement
+ * @typedef {import('mdast-util-mdxjs-esm').MDXJSEsm} MDXJSEsm
  */
 
 import {

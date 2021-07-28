@@ -218,7 +218,7 @@ test('mdast -> markdown', (t) => {
 
   t.equal(
     toMarkdown(
-      {type: 'mdxJsxFlowElement', name: 'x'},
+      {type: 'mdxJsxFlowElement', name: 'x', attributes: [], children: []},
       {extensions: [mdxToMarkdown]}
     ),
     '<x/>\n',
