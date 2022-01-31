@@ -10,7 +10,7 @@ test('markdown -> mdast', (t) => {
       JSON.stringify(
         fromMarkdown('import a from "b"', {
           extensions: [mdxjs()],
-          mdastExtensions: [mdxFromMarkdown]
+          mdastExtensions: [mdxFromMarkdown()]
         })
       )
     ),
@@ -95,7 +95,7 @@ test('markdown -> mdast', (t) => {
   t.deepEqual(
     fromMarkdown('<x/>', {
       extensions: [mdxjs()],
-      mdastExtensions: [mdxFromMarkdown]
+      mdastExtensions: [mdxFromMarkdown()]
     }),
     {
       type: 'root',
@@ -124,7 +124,7 @@ test('markdown -> mdast', (t) => {
       JSON.stringify(
         fromMarkdown('{1 + 1}', {
           extensions: [mdxjs()],
-          mdastExtensions: [mdxFromMarkdown]
+          mdastExtensions: [mdxFromMarkdown()]
         })
       )
     ),
@@ -210,7 +210,7 @@ test('mdast -> markdown', (t) => {
   t.equal(
     toMarkdown(
       {type: 'mdxjsEsm', value: 'import a from "b"'},
-      {extensions: [mdxToMarkdown]}
+      {extensions: [mdxToMarkdown()]}
     ),
     'import a from "b"\n',
     'should support esm'
@@ -219,7 +219,7 @@ test('mdast -> markdown', (t) => {
   t.equal(
     toMarkdown(
       {type: 'mdxJsxFlowElement', name: 'x', attributes: [], children: []},
-      {extensions: [mdxToMarkdown]}
+      {extensions: [mdxToMarkdown()]}
     ),
     '<x/>\n',
     'should support jsx'
@@ -228,7 +228,7 @@ test('mdast -> markdown', (t) => {
   t.deepEqual(
     toMarkdown(
       {type: 'mdxFlowExpression', value: '1 + 1'},
-      {extensions: [mdxToMarkdown]}
+      {extensions: [mdxToMarkdown()]}
     ),
     '{1 + 1}\n',
     'should support expressions'
@@ -241,7 +241,7 @@ test('mdast -> markdown', (t) => {
         url: 'tel:123',
         children: [{type: 'text', value: 'tel:123'}]
       },
-      {extensions: [mdxToMarkdown]}
+      {extensions: [mdxToMarkdown()]}
     ),
     '[tel:123](tel:123)\n',
     'should use link (resource) instead of link (auto)'

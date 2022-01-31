@@ -18,14 +18,21 @@ import {
 import {mdxJsxFromMarkdown, mdxJsxToMarkdown} from 'mdast-util-mdx-jsx'
 import {mdxjsEsmFromMarkdown, mdxjsEsmToMarkdown} from 'mdast-util-mdxjs-esm'
 
-/** @type {FromMarkdownExtension[]} */
-export const mdxFromMarkdown = [
-  mdxExpressionFromMarkdown,
-  mdxJsxFromMarkdown,
-  mdxjsEsmFromMarkdown
-]
+/**
+ *
+ * @return {Array<FromMarkdownExtension>}
+ */
+export function mdxFromMarkdown() {
+  return [mdxExpressionFromMarkdown, mdxJsxFromMarkdown, mdxjsEsmFromMarkdown]
+}
 
-/** @type {ToMarkdownExtension} */
-export const mdxToMarkdown = {
-  extensions: [mdxExpressionToMarkdown, mdxJsxToMarkdown, mdxjsEsmToMarkdown]
+/** @return {ToMarkdownExtension} */
+export function mdxToMarkdown() {
+  return {
+    extensions: [
+      mdxExpressionToMarkdown,
+      mdxJsxToMarkdown,
+      mdxjsEsmToMarkdown
+    ]
+  }
 }

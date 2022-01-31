@@ -72,12 +72,12 @@ const doc = fs.readFileSync('example.mdx')
 
 const tree = fromMarkdown(doc, {
   extensions: [mdxjs()],
-  mdastExtensions: [mdxFromMarkdown]
+  mdastExtensions: [mdxFromMarkdown()]
 })
 
 console.log(tree)
 
-const out = toMarkdown(tree, {extensions: [mdxToMarkdown]})
+const out = toMarkdown(tree, {extensions: [mdxToMarkdown()]})
 
 console.log(out)
 ```
@@ -226,13 +226,13 @@ This package exports the following identifier: `mdxFromMarkdown`,
 `mdxToMarkdown`.
 There is no default export.
 
-### `mdxFromMarkdown`
+### `mdxFromMarkdown()`
 
-### `mdxToMarkdown`
+### `mdxToMarkdown()`
 
 Support MDX (or MDX.js).
-The exports are respectively an extension for
-[`mdast-util-from-markdown`][from-markdown] and
+The exports are functions that can be called to respectively get an extension
+for [`mdast-util-from-markdown`][from-markdown] and
 [`mdast-util-to-markdown`][to-markdown].
 
 There are no options.
