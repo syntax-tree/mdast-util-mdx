@@ -9,6 +9,8 @@
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxFlowElement} MdxJsxFlowElement
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxTextElement} MdxJsxTextElement
+ *
+ * @typedef {import('mdast-util-mdx-jsx').ToMarkdownOptions} ToMarkdownOptions
  */
 
 import {
@@ -19,19 +21,21 @@ import {mdxJsxFromMarkdown, mdxJsxToMarkdown} from 'mdast-util-mdx-jsx'
 import {mdxjsEsmFromMarkdown, mdxjsEsmToMarkdown} from 'mdast-util-mdxjs-esm'
 
 /**
- *
  * @return {Array<FromMarkdownExtension>}
  */
 export function mdxFromMarkdown() {
   return [mdxExpressionFromMarkdown, mdxJsxFromMarkdown(), mdxjsEsmFromMarkdown]
 }
 
-/** @return {ToMarkdownExtension} */
-export function mdxToMarkdown() {
+/**
+ * @param {ToMarkdownOptions} [options]
+ * @return {ToMarkdownExtension}
+ */
+export function mdxToMarkdown(options) {
   return {
     extensions: [
       mdxExpressionToMarkdown,
-      mdxJsxToMarkdown(),
+      mdxJsxToMarkdown(options),
       mdxjsEsmToMarkdown
     ]
   }

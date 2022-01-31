@@ -228,14 +228,14 @@ There is no default export.
 
 ### `mdxFromMarkdown()`
 
-### `mdxToMarkdown()`
+### `mdxToMarkdown(options?)`
 
 Support MDX (or MDX.js).
 The exports are functions that can be called to respectively get an extension
 for [`mdast-util-from-markdown`][from-markdown] and
 [`mdast-util-to-markdown`][to-markdown].
 
-There are no options.
+The options to `mdxToMarkdown` are [passed to `mdxJsxToMarkdown`][options].
 
 ## Related
 
@@ -323,3 +323,5 @@ abide by its terms.
 [mdxjs]: https://github.com/micromark/micromark-extension-mdxjs
 
 [remark-mdx]: https://github.com/mdx-js/mdx/tree/next/packages/remark-mdx
+
+[options]: https://github.com/syntax-tree/mdast-util-mdx-jsx#mdxjsxtomarkdownoptions
