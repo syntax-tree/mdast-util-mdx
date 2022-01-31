@@ -3,12 +3,22 @@
  * @typedef {import('mdast-util-to-markdown').Options} ToMarkdownExtension
  * @typedef {import('mdast-util-mdx-expression').MDXFlowExpression} MDXFlowExpression
  * @typedef {import('mdast-util-mdx-expression').MDXTextExpression} MDXTextExpression
- * @typedef {import('mdast-util-mdx-jsx').MDXJsxAttributeValueExpression} MDXJsxAttributeValueExpression
- * @typedef {import('mdast-util-mdx-jsx').MDXJsxAttribute} MDXJsxAttribute
- * @typedef {import('mdast-util-mdx-jsx').MDXJsxExpressionAttribute} MDXJsxExpressionAttribute
- * @typedef {import('mdast-util-mdx-jsx').MDXJsxFlowElement} MDXJsxFlowElement
- * @typedef {import('mdast-util-mdx-jsx').MDXJsxTextElement} MDXJsxTextElement
  * @typedef {import('mdast-util-mdxjs-esm').MDXJSEsm} MDXJSEsm
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttribute} MdxJsxAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxFlowElement} MdxJsxFlowElement
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxTextElement} MdxJsxTextElement
+ */
+
+/**
+ * Deprecated: remove next major:
+ *
+ * @typedef {MdxJsxAttributeValueExpression} MDXJsxAttributeValueExpression
+ * @typedef {MdxJsxAttribute} MDXJsxAttribute
+ * @typedef {MdxJsxExpressionAttribute} MDXJsxExpressionAttribute
+ * @typedef {MdxJsxFlowElement} MDXJsxFlowElement
+ * @typedef {MdxJsxTextElement} MDXJsxTextElement
  */
 
 import {
@@ -23,7 +33,7 @@ import {mdxjsEsmFromMarkdown, mdxjsEsmToMarkdown} from 'mdast-util-mdxjs-esm'
  * @return {Array<FromMarkdownExtension>}
  */
 export function mdxFromMarkdown() {
-  return [mdxExpressionFromMarkdown, mdxJsxFromMarkdown, mdxjsEsmFromMarkdown]
+  return [mdxExpressionFromMarkdown, mdxJsxFromMarkdown(), mdxjsEsmFromMarkdown]
 }
 
 /** @return {ToMarkdownExtension} */
@@ -31,7 +41,7 @@ export function mdxToMarkdown() {
   return {
     extensions: [
       mdxExpressionToMarkdown,
-      mdxJsxToMarkdown,
+      mdxJsxToMarkdown(),
       mdxjsEsmToMarkdown
     ]
   }

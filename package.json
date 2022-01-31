@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "mdast-util-mdx-expression": "^1.0.0",
-    "mdast-util-mdx-jsx": "^1.0.0",
+    "mdast-util-mdx-jsx": "^2.0.0",
     "mdast-util-mdxjs-esm": "^1.0.0"
   },
   "devDependencies": {

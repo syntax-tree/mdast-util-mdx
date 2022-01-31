@@ -221,7 +221,7 @@ test('mdast -> markdown', (t) => {
       {type: 'mdxJsxFlowElement', name: 'x', attributes: [], children: []},
       {extensions: [mdxToMarkdown()]}
     ),
-    '<x/>\n',
+    '<x />\n',
     'should support jsx'
   )
 
