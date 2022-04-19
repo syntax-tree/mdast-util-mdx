@@ -203,6 +203,327 @@ test('markdown -> mdast', (t) => {
     'should support expressions'
   )
 
+  t.deepEqual(
+    JSON.parse(
+      JSON.stringify(
+        fromMarkdown(
+          `<Stuff>
+  {{
+    template: /* Comment */ '',
+  }}
+</Stuff>`,
+          {
+            extensions: [mdxjs()],
+            mdastExtensions: [mdxFromMarkdown()]
+          }
+        )
+      )
+    ),
+    {
+      type: 'root',
+      children: [
+        {
+          type: 'mdxJsxFlowElement',
+          name: 'Stuff',
+          attributes: [],
+          children: [
+            {
+              type: 'mdxFlowExpression',
+              value: "{\n  template: /* Comment */ '',\n}",
+              position: {
+                start: {line: 2, column: 3, offset: 10},
+                end: {line: 4, column: 5, offset: 49}
+              },
+              data: {
+                estree: {
+                  type: 'Program',
+                  start: 11,
+                  end: 48,
+                  body: [
+                    {
+                      type: 'ExpressionStatement',
+                      expression: {
+                        type: 'ObjectExpression',
+                        start: 11,
+                        end: 48,
+                        properties: [
+                          {
+                            type: 'Property',
+                            start: 17,
+                            end: 43,
+                            method: false,
+                            shorthand: false,
+                            computed: false,
+                            key: {
+                              type: 'Identifier',
+                              start: 17,
+                              end: 25,
+                              name: 'template',
+                              loc: {
+                                start: {line: 3, column: 4},
+                                end: {line: 3, column: 12}
+                              },
+                              range: [17, 25]
+                            },
+                            value: {
+                              type: 'Literal',
+                              start: 41,
+                              end: 43,
+                              value: '',
+                              raw: "''",
+                              loc: {
+                                start: {line: 3, column: 28},
+                                end: {line: 3, column: 30}
+                              },
+                              range: [41, 43]
+                            },
+                            kind: 'init',
+                            loc: {
+                              start: {line: 3, column: 4},
+                              end: {line: 3, column: 30}
+                            },
+                            range: [17, 43]
+                          }
+                        ],
+                        loc: {
+                          start: {line: 2, column: 3},
+                          end: {line: 4, column: 3}
+                        },
+                        range: [11, 48]
+                      },
+                      start: 11,
+                      end: 48,
+                      loc: {
+                        start: {line: 2, column: 3},
+                        end: {line: 4, column: 3}
+                      },
+                      range: [11, 48]
+                    }
+                  ],
+                  sourceType: 'module',
+                  comments: [
+                    {
+                      type: 'Block',
+                      value: ' Comment ',
+                      start: 27,
+                      end: 40,
+                      loc: {
+                        start: {line: 3, column: 14},
+                        end: {line: 3, column: 27}
+                      },
+                      range: [27, 40]
+                    }
+                  ],
+                  loc: {
+                    start: {line: 2, column: 3},
+                    end: {line: 4, column: 3}
+                  },
+                  range: [11, 48]
+                }
+              }
+            }
+          ],
+          position: {
+            start: {line: 1, column: 1, offset: 0},
+            end: {line: 5, column: 9, offset: 58}
+          }
+        }
+      ],
+      position: {
+        start: {line: 1, column: 1, offset: 0},
+        end: {line: 5, column: 9, offset: 58}
+      }
+    },
+    'should add proper positions on estree (1)'
+  )
+
+  t.deepEqual(
+    JSON.parse(
+      JSON.stringify(
+        fromMarkdown(
+          `export let a = 'a'
+
+export let b = 'b'`,
+          {extensions: [mdxjs()], mdastExtensions: [mdxFromMarkdown()]}
+        )
+      )
+    ),
+    {
+      type: 'root',
+      children: [
+        {
+          type: 'mdxjsEsm',
+          value: "export let a = 'a'",
+          position: {
+            start: {line: 1, column: 1, offset: 0},
+            end: {line: 1, column: 19, offset: 18}
+          },
+          data: {
+            estree: {
+              type: 'Program',
+              start: 0,
+              end: 18,
+              body: [
+                {
+                  type: 'ExportNamedDeclaration',
+                  start: 0,
+                  end: 18,
+                  declaration: {
+                    type: 'VariableDeclaration',
+                    start: 7,
+                    end: 18,
+                    declarations: [
+                      {
+                        type: 'VariableDeclarator',
+                        start: 11,
+                        end: 18,
+                        id: {
+                          type: 'Identifier',
+                          start: 11,
+                          end: 12,
+                          name: 'a',
+                          loc: {
+                            start: {line: 1, column: 11},
+                            end: {line: 1, column: 12}
+                          },
+                          range: [11, 12]
+                        },
+                        init: {
+                          type: 'Literal',
+                          start: 15,
+                          end: 18,
+                          value: 'a',
+                          raw: "'a'",
+                          loc: {
+                            start: {line: 1, column: 15},
+                            end: {line: 1, column: 18}
+                          },
+                          range: [15, 18]
+                        },
+                        loc: {
+                          start: {line: 1, column: 11},
+                          end: {line: 1, column: 18}
+                        },
+                        range: [11, 18]
+                      }
+                    ],
+                    kind: 'let',
+                    loc: {
+                      start: {line: 1, column: 7},
+                      end: {line: 1, column: 18}
+                    },
+                    range: [7, 18]
+                  },
+                  specifiers: [],
+                  source: null,
+                  loc: {
+                    start: {line: 1, column: 0},
+                    end: {line: 1, column: 18}
+                  },
+                  range: [0, 18]
+                }
+              ],
+              sourceType: 'module',
+              comments: [],
+              loc: {
+                start: {line: 1, column: 0},
+                end: {line: 1, column: 18}
+              },
+              range: [0, 18]
+            }
+          }
+        },
+        {
+          type: 'mdxjsEsm',
+          value: "export let b = 'b'",
+          position: {
+            start: {line: 3, column: 1, offset: 20},
+            end: {line: 3, column: 19, offset: 38}
+          },
+          data: {
+            estree: {
+              type: 'Program',
+              start: 20,
+              end: 38,
+              body: [
+                {
+                  type: 'ExportNamedDeclaration',
+                  start: 20,
+                  end: 38,
+                  declaration: {
+                    type: 'VariableDeclaration',
+                    start: 27,
+                    end: 38,
+                    declarations: [
+                      {
+                        type: 'VariableDeclarator',
+                        start: 31,
+                        end: 38,
+                        id: {
+                          type: 'Identifier',
+                          start: 31,
+                          end: 32,
+                          name: 'b',
+                          loc: {
+                            start: {line: 3, column: 11},
+                            end: {line: 3, column: 12}
+                          },
+                          range: [31, 32]
+                        },
+                        init: {
+                          type: 'Literal',
+                          start: 35,
+                          end: 38,
+                          value: 'b',
+                          raw: "'b'",
+                          loc: {
+                            start: {line: 3, column: 15},
+                            end: {line: 3, column: 18}
+                          },
+                          range: [35, 38]
+                        },
+                        loc: {
+                          start: {line: 3, column: 11},
+                          end: {line: 3, column: 18}
+                        },
+                        range: [31, 38]
+                      }
+                    ],
+                    kind: 'let',
+                    loc: {
+                      start: {line: 3, column: 7},
+                      end: {line: 3, column: 18}
+                    },
+                    range: [27, 38]
+                  },
+                  specifiers: [],
+                  source: null,
+                  loc: {
+                    start: {line: 3, column: 0},
+                    end: {line: 3, column: 18}
+                  },
+                  range: [20, 38]
+                }
+              ],
+              sourceType: 'module',
+              comments: [],
+              loc: {
+                start: {line: 3, column: 0},
+                end: {line: 3, column: 18}
+              },
+              range: [20, 38]
+            }
+          }
+        }
+      ],
+      position: {
+        start: {line: 1, column: 1, offset: 0},
+        end: {line: 3, column: 19, offset: 38}
+      }
+    },
+    'should add proper positions on estree (2)'
+  )
+
   t.end()
 })
 
