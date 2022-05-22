@@ -29,35 +29,30 @@ test('markdown -> mdast', (t) => {
               type: 'Program',
               start: 0,
               end: 17,
-              loc: {start: {line: 1, column: 0}, end: {line: 1, column: 17}},
               body: [
                 {
                   type: 'ImportDeclaration',
                   start: 0,
                   end: 17,
-                  loc: {
-                    start: {line: 1, column: 0},
-                    end: {line: 1, column: 17}
-                  },
                   specifiers: [
                     {
                       type: 'ImportDefaultSpecifier',
                       start: 7,
                       end: 8,
-                      loc: {
-                        start: {line: 1, column: 7},
-                        end: {line: 1, column: 8}
-                      },
                       local: {
                         type: 'Identifier',
                         start: 7,
                         end: 8,
-                        loc: {
-                          start: {line: 1, column: 7},
-                          end: {line: 1, column: 8}
-                        },
                         name: 'a',
+                        loc: {
+                          start: {line: 1, column: 7, offset: 7},
+                          end: {line: 1, column: 8, offset: 8}
+                        },
                         range: [7, 8]
+                      },
+                      loc: {
+                        start: {line: 1, column: 7, offset: 7},
+                        end: {line: 1, column: 8, offset: 8}
                       },
                       range: [7, 8]
                     }
@@ -66,19 +61,27 @@ test('markdown -> mdast', (t) => {
                     type: 'Literal',
                     start: 14,
                     end: 17,
-                    loc: {
-                      start: {line: 1, column: 14},
-                      end: {line: 1, column: 17}
-                    },
                     value: 'b',
                     raw: '"b"',
+                    loc: {
+                      start: {line: 1, column: 14, offset: 14},
+                      end: {line: 1, column: 17, offset: 17}
+                    },
                     range: [14, 17]
+                  },
+                  loc: {
+                    start: {line: 1, column: 0, offset: 0},
+                    end: {line: 1, column: 17, offset: 17}
                   },
                   range: [0, 17]
                 }
               ],
               sourceType: 'module',
               comments: [],
+              loc: {
+                start: {line: 1, column: 0, offset: 0},
+                end: {line: 1, column: 17, offset: 17}
+              },
               range: [0, 17]
             }
           }
@@ -157,8 +160,8 @@ test('markdown -> mdast', (t) => {
                       value: 1,
                       raw: '1',
                       loc: {
-                        start: {line: 1, column: 1},
-                        end: {line: 1, column: 2}
+                        start: {line: 1, column: 1, offset: 1},
+                        end: {line: 1, column: 2, offset: 2}
                       },
                       range: [1, 2]
                     },
@@ -170,26 +173,32 @@ test('markdown -> mdast', (t) => {
                       value: 1,
                       raw: '1',
                       loc: {
-                        start: {line: 1, column: 5},
-                        end: {line: 1, column: 6}
+                        start: {line: 1, column: 5, offset: 5},
+                        end: {line: 1, column: 6, offset: 6}
                       },
                       range: [5, 6]
                     },
                     loc: {
-                      start: {line: 1, column: 1},
-                      end: {line: 1, column: 6}
+                      start: {line: 1, column: 1, offset: 1},
+                      end: {line: 1, column: 6, offset: 6}
                     },
                     range: [1, 6]
                   },
                   start: 1,
                   end: 6,
-                  loc: {start: {line: 1, column: 1}, end: {line: 1, column: 6}},
+                  loc: {
+                    start: {line: 1, column: 1, offset: 1},
+                    end: {line: 1, column: 6, offset: 6}
+                  },
                   range: [1, 6]
                 }
               ],
               sourceType: 'module',
               comments: [],
-              loc: {start: {line: 1, column: 1}, end: {line: 1, column: 6}},
+              loc: {
+                start: {line: 1, column: 1, offset: 1},
+                end: {line: 1, column: 6, offset: 6}
+              },
               range: [1, 6]
             }
           }
@@ -207,11 +216,7 @@ test('markdown -> mdast', (t) => {
     JSON.parse(
       JSON.stringify(
         fromMarkdown(
-          `<Stuff>
-  {{
-    template: /* Comment */ '',
-  }}
-</Stuff>`,
+          "<Stuff>\n  {{\n    template: /* Comment */ '',\n  }}\n</Stuff>",
           {
             extensions: [mdxjs()],
             mdastExtensions: [mdxFromMarkdown()]
@@ -260,8 +265,8 @@ test('markdown -> mdast', (t) => {
                               end: 25,
                               name: 'template',
                               loc: {
-                                start: {line: 3, column: 4},
-                                end: {line: 3, column: 12}
+                                start: {line: 3, column: 4, offset: 17},
+                                end: {line: 3, column: 12, offset: 25}
                               },
                               range: [17, 25]
                             },
@@ -272,30 +277,30 @@ test('markdown -> mdast', (t) => {
                               value: '',
                               raw: "''",
                               loc: {
-                                start: {line: 3, column: 28},
-                                end: {line: 3, column: 30}
+                                start: {line: 3, column: 28, offset: 41},
+                                end: {line: 3, column: 30, offset: 43}
                               },
                               range: [41, 43]
                             },
                             kind: 'init',
                             loc: {
-                              start: {line: 3, column: 4},
-                              end: {line: 3, column: 30}
+                              start: {line: 3, column: 4, offset: 17},
+                              end: {line: 3, column: 30, offset: 43}
                             },
                             range: [17, 43]
                           }
                         ],
                         loc: {
-                          start: {line: 2, column: 3},
-                          end: {line: 4, column: 3}
+                          start: {line: 2, column: 3, offset: 11},
+                          end: {line: 4, column: 3, offset: 48}
                         },
                         range: [11, 48]
                       },
                       start: 11,
                       end: 48,
                       loc: {
-                        start: {line: 2, column: 3},
-                        end: {line: 4, column: 3}
+                        start: {line: 2, column: 3, offset: 11},
+                        end: {line: 4, column: 3, offset: 48}
                       },
                       range: [11, 48]
                     }
@@ -308,15 +313,15 @@ test('markdown -> mdast', (t) => {
                       start: 27,
                       end: 40,
                       loc: {
-                        start: {line: 3, column: 14},
-                        end: {line: 3, column: 27}
+                        start: {line: 3, column: 14, offset: 27},
+                        end: {line: 3, column: 27, offset: 40}
                       },
                       range: [27, 40]
                     }
                   ],
                   loc: {
-                    start: {line: 2, column: 3},
-                    end: {line: 4, column: 3}
+                    start: {line: 2, column: 3, offset: 11},
+                    end: {line: 4, column: 3, offset: 48}
                   },
                   range: [11, 48]
                 }
@@ -340,12 +345,10 @@ test('markdown -> mdast', (t) => {
   t.deepEqual(
     JSON.parse(
       JSON.stringify(
-        fromMarkdown(
-          `export let a = 'a'
-
-export let b = 'b'`,
-          {extensions: [mdxjs()], mdastExtensions: [mdxFromMarkdown()]}
-        )
+        fromMarkdown("export let a = 'a'\n\nexport let b = 'b'", {
+          extensions: [mdxjs()],
+          mdastExtensions: [mdxFromMarkdown()]
+        })
       )
     ),
     {
@@ -383,8 +386,8 @@ export let b = 'b'`,
                           end: 12,
                           name: 'a',
                           loc: {
-                            start: {line: 1, column: 11},
-                            end: {line: 1, column: 12}
+                            start: {line: 1, column: 11, offset: 11},
+                            end: {line: 1, column: 12, offset: 12}
                           },
                           range: [11, 12]
                         },
@@ -395,30 +398,30 @@ export let b = 'b'`,
                           value: 'a',
                           raw: "'a'",
                           loc: {
-                            start: {line: 1, column: 15},
-                            end: {line: 1, column: 18}
+                            start: {line: 1, column: 15, offset: 15},
+                            end: {line: 1, column: 18, offset: 18}
                           },
                           range: [15, 18]
                         },
                         loc: {
-                          start: {line: 1, column: 11},
-                          end: {line: 1, column: 18}
+                          start: {line: 1, column: 11, offset: 11},
+                          end: {line: 1, column: 18, offset: 18}
                         },
                         range: [11, 18]
                       }
                     ],
                     kind: 'let',
                     loc: {
-                      start: {line: 1, column: 7},
-                      end: {line: 1, column: 18}
+                      start: {line: 1, column: 7, offset: 7},
+                      end: {line: 1, column: 18, offset: 18}
                     },
                     range: [7, 18]
                   },
                   specifiers: [],
                   source: null,
                   loc: {
-                    start: {line: 1, column: 0},
-                    end: {line: 1, column: 18}
+                    start: {line: 1, column: 0, offset: 0},
+                    end: {line: 1, column: 18, offset: 18}
                   },
                   range: [0, 18]
                 }
@@ -426,8 +429,8 @@ export let b = 'b'`,
               sourceType: 'module',
               comments: [],
               loc: {
-                start: {line: 1, column: 0},
-                end: {line: 1, column: 18}
+                start: {line: 1, column: 0, offset: 0},
+                end: {line: 1, column: 18, offset: 18}
               },
               range: [0, 18]
             }
@@ -465,8 +468,8 @@ export let b = 'b'`,
                           end: 32,
                           name: 'b',
                           loc: {
-                            start: {line: 3, column: 11},
-                            end: {line: 3, column: 12}
+                            start: {line: 3, column: 11, offset: 31},
+                            end: {line: 3, column: 12, offset: 32}
                           },
                           range: [31, 32]
                         },
@@ -477,30 +480,30 @@ export let b = 'b'`,
                           value: 'b',
                           raw: "'b'",
                           loc: {
-                            start: {line: 3, column: 15},
-                            end: {line: 3, column: 18}
+                            start: {line: 3, column: 15, offset: 35},
+                            end: {line: 3, column: 18, offset: 38}
                           },
                           range: [35, 38]
                         },
                         loc: {
-                          start: {line: 3, column: 11},
-                          end: {line: 3, column: 18}
+                          start: {line: 3, column: 11, offset: 31},
+                          end: {line: 3, column: 18, offset: 38}
                         },
                         range: [31, 38]
                       }
                     ],
                     kind: 'let',
                     loc: {
-                      start: {line: 3, column: 7},
-                      end: {line: 3, column: 18}
+                      start: {line: 3, column: 7, offset: 27},
+                      end: {line: 3, column: 18, offset: 38}
                     },
                     range: [27, 38]
                   },
                   specifiers: [],
                   source: null,
                   loc: {
-                    start: {line: 3, column: 0},
-                    end: {line: 3, column: 18}
+                    start: {line: 3, column: 0, offset: 20},
+                    end: {line: 3, column: 18, offset: 38}
                   },
                   range: [20, 38]
                 }
@@ -508,8 +511,8 @@ export let b = 'b'`,
               sourceType: 'module',
               comments: [],
               loc: {
-                start: {line: 3, column: 0},
-                end: {line: 3, column: 18}
+                start: {line: 3, column: 0, offset: 20},
+                end: {line: 3, column: 18, offset: 38}
               },
               range: [20, 38]
             }
