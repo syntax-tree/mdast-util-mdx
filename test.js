@@ -4,6 +4,15 @@ import {fromMarkdown} from 'mdast-util-from-markdown'
 import {toMarkdown} from 'mdast-util-to-markdown'
 import {mdxjs} from 'micromark-extension-mdxjs'
 import {mdxFromMarkdown, mdxToMarkdown} from './index.js'
+import * as mod from './index.js'
+
+test('core', () => {
+  assert.deepEqual(
+    Object.keys(mod).sort(),
+    ['mdxFromMarkdown', 'mdxToMarkdown'],
+    'should expose the public api'
+  )
+})
 
 test('mdxFromMarkdown', () => {
   assert.deepEqual(
