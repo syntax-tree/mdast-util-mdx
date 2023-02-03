@@ -1,11 +1,12 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {fromMarkdown} from 'mdast-util-from-markdown'
 import {toMarkdown} from 'mdast-util-to-markdown'
 import {mdxjs} from 'micromark-extension-mdxjs'
 import {mdxFromMarkdown, mdxToMarkdown} from './index.js'
 
-test('markdown -> mdast', (t) => {
-  t.deepEqual(
+test('mdxFromMarkdown', () => {
+  assert.deepEqual(
     JSON.parse(
       JSON.stringify(
         fromMarkdown('import a from "b"', {
@@ -95,7 +96,7 @@ test('markdown -> mdast', (t) => {
     'should support esm'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     fromMarkdown('<x/>', {
       extensions: [mdxjs()],
       mdastExtensions: [mdxFromMarkdown()]
@@ -122,7 +123,7 @@ test('markdown -> mdast', (t) => {
     'should support jsx'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     JSON.parse(
       JSON.stringify(
         fromMarkdown('{1 + 1}', {
@@ -212,7 +213,7 @@ test('markdown -> mdast', (t) => {
     'should support expressions'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     JSON.parse(
       JSON.stringify(
         fromMarkdown(
@@ -342,7 +343,7 @@ test('markdown -> mdast', (t) => {
     'should add proper positions on estree (1)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     JSON.parse(
       JSON.stringify(
         fromMarkdown("export let a = 'a'\n\nexport let b = 'b'", {
@@ -526,12 +527,10 @@ test('markdown -> mdast', (t) => {
     },
     'should add proper positions on estree (2)'
   )
-
-  t.end()
 })
 
-test('mdast -> markdown', (t) => {
-  t.equal(
+test('mdxToMarkdown', () => {
+  assert.equal(
     toMarkdown(
       {type: 'mdxjsEsm', value: 'import a from "b"'},
       {extensions: [mdxToMarkdown()]}
@@ -540,7 +539,7 @@ test('mdast -> markdown', (t) => {
     'should support esm'
   )
 
-  t.equal(
+  assert.equal(
     toMarkdown(
       {type: 'mdxJsxFlowElement', name: 'x', attributes: [], children: []},
       {extensions: [mdxToMarkdown()]}
@@ -549,7 +548,7 @@ test('mdast -> markdown', (t) => {
     'should support jsx'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     toMarkdown(
       {type: 'mdxFlowExpression', value: '1 + 1'},
       {extensions: [mdxToMarkdown()]}
@@ -558,7 +557,7 @@ test('mdast -> markdown', (t) => {
     'should support expressions'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     toMarkdown(
       {
         type: 'link',
@@ -570,6 +569,4 @@ test('mdast -> markdown', (t) => {
     '[tel:123](tel:123)\n',
     'should use link (resource) instead of link (auto)'
   )
-
-  t.end()
 })
