@@ -8,8 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[mdast][] extensions to parse and serialize [MDX][]: ESM import/exports,
-JavaScript expressions, and JSX.
+[mdast][] extensions to parse and serialize [MDX][]: ESM, JSX, and expressions.
 
 ## Contents
 
@@ -20,6 +19,9 @@ JavaScript expressions, and JSX.
 *   [API](#api)
     *   [`mdxFromMarkdown()`](#mdxfrommarkdown)
     *   [`mdxToMarkdown(options?)`](#mdxtomarkdownoptions)
+    *   [`ToMarkdownOptions`](#tomarkdownoptions)
+*   [HTML](#html)
+*   [Syntax](#syntax)
 *   [Syntax tree](#syntax-tree)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -29,18 +31,23 @@ JavaScript expressions, and JSX.
 
 ## What is this?
 
-This package contains extensions for
-[`mdast-util-from-markdown`][mdast-util-from-markdown] and
-[`mdast-util-to-markdown`][mdast-util-to-markdown] to enable the features that
-MDX adds to markdown: import/exports (`export x from 'y'`), expressions
-(`{z}`), and JSX (`<Component />`).
+This package contains two extensions that add support for MDX syntax in
+markdown to [mdast][]: ESM (`import x from 'y'`), JSX (`<a />`), and
+expressions (`{Math.PI}`).
+These extensions plug into
+[`mdast-util-from-markdown`][mdast-util-from-markdown] (to support parsing
+MDX in markdown into a syntax tree) and
+[`mdast-util-to-markdown`][mdast-util-to-markdown] (to support serializing
+MDX in syntax trees to markdown).
 
 ## When to use this
 
-These tools are all rather low-level.
-In many cases, you’d want to use [`remark-mdx`][remark-mdx] with remark instead.
+You can use these extensions when you are working with
+`mdast-util-from-markdown` and `mdast-util-to-markdown` already.
 
-Use this if you’re dealing with the AST manually and want to support all of MDX.
+When working with `mdast-util-from-markdown`, you must combine this package
+with [`micromark-extension-mdx`][mdx] or [`micromark-extension-mdxjs`][mdxjs].
+
 Instead of this package, you can also use the extensions separately:
 
 *   [`mdast-util-mdx-expression`](https://github.com/syntax-tree/mdast-util-mdx-expression)
@@ -50,14 +57,14 @@ Instead of this package, you can also use the extensions separately:
 *   [`mdast-util-mdxjs-esm`](https://github.com/syntax-tree/mdast-util-mdxjs-esm)
     — support MDX ESM
 
-When working with `mdast-util-from-markdown`, you must combine this package with
-[`micromark/micromark-extension-mdx`][mdx] or
-[`micromark/micromark-extension-mdxjs`][mdxjs].
+All these packages are used in [`remark-mdx`][remark-mdx], which
+focusses on making it easier to transform content by abstracting these
+internals away.
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install mdast-util-mdx
@@ -262,25 +269,71 @@ Which you can also put inline: {1+1}.
 
 ## API
 
-This package exports the identifiers `mdxFromMarkdown` and `mdxToMarkdown`.
+This package exports the identifiers [`mdxFromMarkdown`][api-mdx-from-markdown]
+and [`mdxToMarkdown`][api-mdx-to-markdown].
 There is no default export.
 
 ### `mdxFromMarkdown()`
 
-Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown].
+Create an extension for [`mdast-util-from-markdown`][mdast-util-from-markdown]
+to enable MDX (ESM, JSX, expressions).
 
-When using the [syntax extension with `addResult`][mdxjs], nodes will have
-a `data.estree` field set to an [ESTree][].
+###### Returns
+
+Extension for `mdast-util-from-markdown` to enable MDX
+([`FromMarkdownExtension`][from-markdown-extension]).
+
+When using the [syntax extensions with `addResult`][mdxjs], ESM and expression
+nodes will have `data.estree` fields set to ESTree [`Program`][program] node.
 
 ### `mdxToMarkdown(options?)`
 
+Create an extension for [`mdast-util-to-markdown`][mdast-util-to-markdown]
+to enable MDX (ESM, JSX, expressions).
+
 Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown].
 
-##### `options`
+###### Parameters
 
-Configuration (optional).
-Currently passes through `quote`, `quoteSmart`, `tightSelfClosing`, and
-`printWidth` to [`mdast-util-mdx-jsx`][options].
+*   `options` ([`ToMarkdownOptions`][api-to-markdown-options])
+    — configuration
+
+###### Returns
+
+Extension for `mdast-util-to-markdown` to enable MDX
+([`FromMarkdownExtension`][to-markdown-extension]).
+
+### `ToMarkdownOptions`
+
+Configuration (TypeScript type).
+
+###### Fields
+
+*   `quote` (`'"'` or `"'"`, default: `'"'`)
+    — preferred quote to use around attribute values
+*   `quoteSmart` (`boolean`, default: `false`)
+    — use the other quote if that results in less bytes
+*   `tightSelfClosing` (`boolean`, default: `false`)
+    — do not use an extra space when closing self-closing elements: `<img/>`
+    instead of `<img />`
+*   `printWidth` (`number`, default: `Infinity`)
+    — try and wrap syntax at this width.
+    When set to a finite number (say, `80`), the formatter will print
+    attributes on separate lines when a tag doesn’t fit on one line.
+    The normal behavior is to print attributes with spaces between them instead
+    of line endings
+
+## HTML
+
+MDX has no representation in HTML.
+Though, when you are dealing with MDX, you will likely go *through* hast.
+You can enable passing MDX through to hast by configuring
+[`mdast-util-to-hast`][mdast-util-to-hast] with `passThrough: ['mdxjsEsm',
+'mdxFlowExpression', 'mdxJsxFlowElement', 'mdxJsxTextElement', 'mdxTextExpression']`.
+
+## Syntax
+
+See [Syntax in `micromark-extension-mdxjs`][mdxjs].
 
 ## Syntax tree
 
@@ -300,9 +353,9 @@ This package is fully typed with [TypeScript][].
 It exports the additional types `MdxFlowExpression`, `MdxTextExpression`,
 `MdxjsEsm`, `MdxJsxAttributeValueExpression`, `MdxJsxAttribute`,
 `MdxJsxExpressionAttribute`, `MdxJsxFlowElement`,
-`MdxJsxTextElement`, and `ToMarkdownOptions`.
+`MdxJsxTextElement`, and [`ToMarkdownOptions`][api-to-markdown-options].
 
-It also registers the node types with `@types/mdast`.
+It also registers the node types with `@types/mdast` and `@types/hast`.
 If you’re working with the syntax tree, make sure to import this utility
 somewhere in your types, as that registers the new node types in the tree.
 
@@ -325,7 +378,7 @@ visit(tree, (node) => {
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 This utility works with `mdast-util-from-markdown` version 1+ and
@@ -333,11 +386,11 @@ This utility works with `mdast-util-from-markdown` version 1+ and
 
 ## Related
 
-*   [`remarkjs/remark-mdx`][remark-mdx]
+*   [`remark-mdx`][remark-mdx]
     — remark plugin to support MDX
-*   [`micromark/micromark-extension-mdx`][mdx]
+*   [`micromark-extension-mdx`][mdx]
     — micromark extension to parse MDX
-*   [`micromark/micromark-extension-mdxjs`][mdxjs]
+*   [`micromark-extension-mdxjs`][mdxjs]
     — micromark extension to parse JavaScript-aware MDX
 
 ## Contribute
@@ -406,7 +459,13 @@ abide by its terms.
 
 [mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
 
+[from-markdown-extension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
+
 [mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
+
+[to-markdown-extension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
+
+[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
 
 [mdx]: https://github.com/micromark/micromark-extension-mdx
 
@@ -414,6 +473,10 @@ abide by its terms.
 
 [remark-mdx]: https://github.com/mdx-js/mdx/tree/next/packages/remark-mdx
 
-[options]: https://github.com/syntax-tree/mdast-util-mdx-jsx#mdxjsxtomarkdownoptions
+[program]: https://github.com/estree/estree/blob/master/es2015.md#programs
 
-[estree]: https://github.com/estree/estree
+[api-mdx-from-markdown]: #mdxfrommarkdown
+
+[api-mdx-to-markdown]: #mdxtomarkdownoptions
+
+[api-to-markdown-options]: #tomarkdownoptions
