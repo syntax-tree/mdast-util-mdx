@@ -244,7 +244,7 @@ test('mdxFromMarkdown', () => {
           children: [
             {
               type: 'mdxFlowExpression',
-              value: "{\n  template: /* Comment */ '',\n}",
+              value: "{\n    template: /* Comment */ '',\n  }",
               position: {
                 start: {line: 2, column: 3, offset: 10},
                 end: {line: 4, column: 5, offset: 49}
