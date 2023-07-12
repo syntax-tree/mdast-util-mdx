@@ -2,12 +2,12 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {mdxjs} from 'micromark-extension-mdxjs'
 import {fromMarkdown} from 'mdast-util-from-markdown'
+import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
 import {toMarkdown} from 'mdast-util-to-markdown'
-import {mdxFromMarkdown, mdxToMarkdown} from './index.js'
 
 test('core', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+    assert.deepEqual(Object.keys(await import('mdast-util-mdx')).sort(), [
       'mdxFromMarkdown',
       'mdxToMarkdown'
     ])

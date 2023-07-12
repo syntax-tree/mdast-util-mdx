@@ -110,10 +110,10 @@ Which you can also put inline: {1+1}.
 
 ```js
 import fs from 'node:fs/promises'
-import {fromMarkdown} from 'mdast-util-from-markdown'
-import {toMarkdown} from 'mdast-util-to-markdown'
 import {mdxjs} from 'micromark-extension-mdxjs'
+import {fromMarkdown} from 'mdast-util-from-markdown'
 import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
+import {toMarkdown} from 'mdast-util-to-markdown'
 
 const doc = await fs.readFile('example.mdx')
 
