@@ -73,14 +73,14 @@ npm install mdast-util-mdx
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {mdxFromMarkdown, mdxToMarkdown} from 'https://esm.sh/mdast-util-mdx@2'
+import {mdxFromMarkdown, mdxToMarkdown} from 'https://esm.sh/mdast-util-mdx@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {mdxFromMarkdown, mdxToMarkdown} from 'https://esm.sh/mdast-util-mdx@2?bundle'
+  import {mdxFromMarkdown, mdxToMarkdown} from 'https://esm.sh/mdast-util-mdx@3?bundle'
 </script>
 ```
 
