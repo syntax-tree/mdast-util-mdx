@@ -32,7 +32,11 @@ import {mdxjsEsmFromMarkdown, mdxjsEsmToMarkdown} from 'mdast-util-mdxjs-esm'
  *   nodes will have `data.estree` fields set to ESTree `Program` node.
  */
 export function mdxFromMarkdown() {
-  return [mdxExpressionFromMarkdown, mdxJsxFromMarkdown(), mdxjsEsmFromMarkdown]
+  return [
+    mdxExpressionFromMarkdown(),
+    mdxJsxFromMarkdown(),
+    mdxjsEsmFromMarkdown()
+  ]
 }
 
 /**
@@ -48,9 +52,9 @@ export function mdxFromMarkdown() {
 export function mdxToMarkdown(options) {
   return {
     extensions: [
-      mdxExpressionToMarkdown,
+      mdxExpressionToMarkdown(),
       mdxJsxToMarkdown(options),
-      mdxjsEsmToMarkdown
+      mdxjsEsmToMarkdown()
     ]
   }
 }
