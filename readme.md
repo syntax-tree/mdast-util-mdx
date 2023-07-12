@@ -350,10 +350,17 @@ See their readmes for the node types supported in the tree:
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types `MdxFlowExpression`, `MdxTextExpression`,
-`MdxjsEsm`, `MdxJsxAttributeValueExpression`, `MdxJsxAttribute`,
-`MdxJsxExpressionAttribute`, `MdxJsxFlowElement`,
-`MdxJsxTextElement`, and [`ToMarkdownOptions`][api-to-markdown-options].
+It exports the additional types
+`MdxFlowExpression` and `MdxTextExpression`
+from `mdast-util-mdx-expression`;
+`MdxJsxAttribute`,
+`MdxJsxAttributeValueExpression`,
+`MdxJsxExpressionAttribute`,
+`MdxJsxFlowElement`,
+`MdxJsxTextElement`,
+and [`ToMarkdownOptions`][api-to-markdown-options]
+from `mdast-util-mdx-jsx`;
+and `MdxjsEsm` from `mdast-util-mdxjs-esm`.
 
 It also registers the node types with `@types/mdast` and `@types/hast`.
 If you’re working with the syntax tree, make sure to import this utility
