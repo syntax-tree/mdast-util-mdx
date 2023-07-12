@@ -4,13 +4,13 @@
  *
  * @typedef {import('mdast-util-mdx-expression').MdxFlowExpression} MdxFlowExpression
  * @typedef {import('mdast-util-mdx-expression').MdxTextExpression} MdxTextExpression
- * @typedef {import('mdast-util-mdxjs-esm').MdxjsEsm} MdxjsEsm
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttribute} MdxJsxAttribute
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxFlowElement} MdxJsxFlowElement
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxTextElement} MdxJsxTextElement
  * @typedef {import('mdast-util-mdx-jsx').ToMarkdownOptions} ToMarkdownOptions
+ * @typedef {import('mdast-util-mdxjs-esm').MdxjsEsm} MdxjsEsm
  */
 
 import {
@@ -44,7 +44,7 @@ export function mdxFromMarkdown() {
  * expressions).
  *
  * @param {ToMarkdownOptions | null | undefined} [options]
- *   Configuration.
+ *   Configuration (optional).
  * @returns {ToMarkdownExtension}
  *   Extension for `mdast-util-to-markdown` to enable MDX (ESM, JSX,
  *   expressions).
